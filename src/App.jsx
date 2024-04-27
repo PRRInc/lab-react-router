@@ -37,11 +37,7 @@ function App() {
               path="/staff"
               element={<StaffList employees={employees} type={"Staff List"} />}
             />
-              {/* <Route
-                path="/ceiling"
-                element={}
-              ></Route>
-            </Route> */}
+              
             <Route
               path="/pets"
               element={<PetsList pets={pets} type={"Pets"} />}
