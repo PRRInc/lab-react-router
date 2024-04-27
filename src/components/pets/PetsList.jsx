@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import PetsListNav from "./PetsListNav";
 import Pet from "./Pet";
 import "./PetsList.css";
@@ -13,19 +14,28 @@ export const PetsList = ({ pets }) => {
     [[], []]
   );
 
+  const { animal } = useParams();
+  console.log(animal);
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if(animal === undefined) {
+      navigate("/pets/cats")
+    }
+  }, [])
+
   return (
     <section className="pets-wrapper">
       <PetsListNav cats={cats} dogs={dogs} />
       <section className="pets-list">
-        {/* All cats section */}
-        {cats.map((cat) => (
-          <Pet key={cat.id} kind="cat" pet={cat} />
-        ))}
-
-        {/* All dogs section */}
-        {dogs.map((dog) => (
-          <Pet key={dog.id} kind="dog" pet={dog} />
-        ))}
+        {
+          animal === "cats" ? cats.map((cat) => (
+            <Pet key={cat.id} kind="cat" pet={cat} />
+          )) : animal === "dogs" ? dogs.map((dog) => (
+            <Pet key={dog.id} kind="dog" pet={dog} />
+          )) : "Not Found"
+        }
       </section>
     </section>
   );
